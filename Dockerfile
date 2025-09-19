@@ -1,30 +1,52 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Step 1: Build the Next.js app
+FROM node:20-alpine AS builder
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Set working directory
 WORKDIR /app
 
-# copy csproj & restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
+# Install dependencies
+COPY pnpm-lock.yaml ./
+COPY package.json ./
 
-# copy rest of the app
-COPY . ./
+# Copy the rest of the code
+COPY . .
 
-# build the app
-RUN dotnet publish -c Release -o out
+RUN CI=true pnpm install --frozen-lockfile
 
-# -------------------------------
-# Stage 2: Runtime
-# -------------------------------
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Build the Next.js app
+RUN pnpm run build
+
+FROM node:20-alpine AS runner
+
+# Install pnpm
+RUN npm install -g pnpm
+
 WORKDIR /app
 
-# copy published files from build stage
-COPY --from=build /app/out ./
+# Install production dependencies only
+COPY pnpm-lock.yaml ./
+COPY package.json ./
 
-# expose port
+RUN CI=true pnpm install --prod --ignore-scripts --frozen-lockfile
+
+# Copy the build output from the builder stage
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=5000
+ENV HOSTNAME="0.0.0.0"
+
+# Expose the port the app runs on
 EXPOSE 5000
 
-# set environment variable to listen on 0.0.0.0
-ENV DOTNET_URLS=http://0.0.0.0:5000
-
-# start the app
-ENTRYPOINT ["dotnet", "please-scan-web.dll"]
+# Start the app
+CMD ["pnpm", "start"]
