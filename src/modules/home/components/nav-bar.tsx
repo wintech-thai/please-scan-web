@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import Logo from '../../../components/Logo';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -22,7 +22,13 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center"
           >
-            <Logo size="md" showText={true} />
+            <Image
+              src="/logo.png"
+              alt="Please Scan Logo"
+              width={60}
+              height={60}
+              className="mr-2"
+            />
           </motion.div>
 
           {/* Desktop Menu */}

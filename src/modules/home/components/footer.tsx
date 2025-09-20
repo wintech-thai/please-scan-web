@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
-import Logo from '../../../components/Logo';
+import Image from 'next/image';
 
 const Footer = () => {
   const socialLinks = [
@@ -29,7 +29,13 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <Logo size="md" showText={true} />
+            <Image
+              src="/logo.png"
+              alt="Please Scan Logo"
+              width={60}
+              height={40}
+              className="mr-2"
+            />
             <p className="text-gray-400 leading-relaxed">
               Your trusted partner for innovative technology solutions.
               We transform ideas into digital reality.

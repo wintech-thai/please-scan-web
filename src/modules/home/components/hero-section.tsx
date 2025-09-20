@@ -33,12 +33,26 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+            className="flex justify-center"
+          >
+            <img
+              src="/logo.png"
+              alt="Please Scan Logo"
+              className="h-32 w-32 md:h-[200px] md:w-[200px]"
+            />
+          </motion.div>
+
           {/* Main Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight"
           >
             Please
             <motion.span
