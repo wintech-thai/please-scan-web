@@ -77,7 +77,6 @@ const Navbar = () => {
                 href={`#${item.toLowerCase()}`}
                 whileHover={{ x: 10 }}
                 className="text-white hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsOpen(false)}
               >
                 {item}
               </motion.a>
