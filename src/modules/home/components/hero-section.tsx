@@ -44,11 +44,14 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 1.5 }}
             className="flex justify-center"
           >
-            <Image
-              src="/logo.png"
-              alt="Please Scan Logo"
-              className="h-32 w-32 md:h-[200px] md:w-[200px]"
-            />
+            <div className="relative h-32 w-32 md:h-[200px] md:w-[200px]">
+              <Image
+                src="/logo.png"
+                alt="Please Scan Logo"
+                fill
+                className="absolute object-cover"
+              />
+            </div>
           </motion.div>
 
           {/* Main Title */}
