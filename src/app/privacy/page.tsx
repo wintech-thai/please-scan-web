@@ -1,8 +1,10 @@
 import Footer from "@/modules/home/components/footer";
+import Navbar from "@/modules/home/components/nav-bar";
 
 const PrivacyPage = () => {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 no-scroll-x">
+      <Navbar />
       {/* Background Effects */}
       <div className="fixed inset-0 opacity-20 overflow-hidden">
         <div
@@ -13,7 +15,7 @@ const PrivacyPage = () => {
         />
       </div>
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 mt-10">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-blue-400 mb-8">
             🛡️ นโยบายความเป็นส่วนตัว (Privacy Policy)
