@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
+import { PublicEnvScript } from "next-runtime-env";
 
 const notoSansThai = Noto_Sans_Thai({
   variable: "--font-noto-sans-thai",
@@ -29,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <head>
+        <PublicEnvScript />
+      </head>
       <body
         className={`${notoSansThai.variable} antialiased`}
       >

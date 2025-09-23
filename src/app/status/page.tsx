@@ -3,8 +3,20 @@
 import Footer from '@/modules/home/components/footer';
 import { motion } from 'framer-motion';
 import { Activity } from 'lucide-react';
+import { env } from 'next-runtime-env';
+import { useEffect, useState } from 'react';
 
 const StatusPage = () => {
+  const [client, setClient] = useState(false);
+
+  const statusUrl = env("NEXT_PUBLIC_WEB_STATUS_URL") || "https://uptime.dev-hubs.com/status/please-scan";
+
+  useEffect(() => {
+    setClient(true);
+  }, [])
+
+  if (!client) return null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
       {/* Background Effects */}
@@ -71,7 +83,7 @@ const StatusPage = () => {
           {/* Iframe Container */}
           <div className="relative">
             <iframe
-              src="https://uptime.dev-hubs.com/status/please-scan"
+              src={statusUrl}
               className="w-full h-[600px] md:h-[700px] lg:h-[800px] border-0"
               title="Please-Scan System Status"
               sandbox="allow-scripts allow-same-origin allow-forms"
