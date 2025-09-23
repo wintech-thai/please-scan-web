@@ -13,11 +13,39 @@ const Footer = () => {
     { icon: Twitter, href: '#', label: 'Twitter' },
   ];
 
+  const links = [
+    {
+      name: "About",
+      link: AppRoute.home + '#about',
+    },
+    {
+      name: "Services",
+      link: AppRoute.home + '#services',
+    },
+    {
+      name: "Privacy",
+      link: AppRoute.privacy,
+    },
+    {
+      name: "Status",
+      link: AppRoute.status,
+    },
+  ];
+
   const contactInfo = [
     { icon: Mail, text: 'contact@please-scan.com', href: 'mailto:contact@please-scan.com' },
     { icon: Phone, text: '66(0) 94-249-4880', href: 'tel:+66942494880' },
     { icon: MapPin, text: 'DevHub Co., Ltd. 55 Sutthisan Winitchai Road, Din Daeng Subdistrict, Din Daeng District, Bangkok 10400, Thailand', href: '#' },
   ];
+
+  const services = [
+    "Customizable UI/UX",
+    "System Integration",
+    "QR Sticker Design for Products",
+    "Analytics & Insights",
+    "Scalability & Performance",
+    "Support & Maintenance"
+  ]
 
   return (
     <footer className="relative bg-black/20 backdrop-blur-sm border-t border-white/10">
@@ -73,7 +101,7 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold text-white">Services</h3>
             <ul className="space-y-2">
-              {['Fullstack Development', 'Web Development', 'API Development', 'DevOps Solutions'].map((service, index) => (
+              {services.map((service, index) => (
                 <motion.li
                   key={index}
                   whileHover={{ x: 5 }}
@@ -95,13 +123,15 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold text-white">Quick Links</h3>
             <ul className="space-y-2">
-              {['About', 'Services'].map((link, index) => (
+              {links.map((link, index) => (
                 <motion.li
                   key={index}
                   whileHover={{ x: 5 }}
                   className="text-gray-400 hover:text-blue-400 cursor-pointer transition-colors"
                 >
-                  <a href={`#${link.toLowerCase()}`}>{link}</a>
+                  <Link href={link.link}>
+                    {link.name}
+                  </Link>
                 </motion.li>
               ))}
             </ul>

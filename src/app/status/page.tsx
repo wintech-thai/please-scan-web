@@ -1,8 +1,8 @@
 "use client";
 
 import Footer from '@/modules/home/components/footer';
+import Navbar from '@/modules/home/components/nav-bar';
 import { motion } from 'framer-motion';
-import { Activity } from 'lucide-react';
 import { env } from 'next-runtime-env';
 import { useEffect, useState } from 'react';
 
@@ -18,7 +18,7 @@ const StatusPage = () => {
   if (!client) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 no-scroll-x">
       {/* Background Effects */}
       <div className="fixed inset-0 opacity-20">
         <div
@@ -28,58 +28,14 @@ const StatusPage = () => {
           }}
         />
       </div>
+      <Navbar />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-8"
-        >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center justify-center mb-6"
-          >
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg mr-4">
-              <Activity className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold">
-              <span className="text-white">System</span>
-              <span className="text-green-400"> Status</span>
-            </h1>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-          >
-            ตรวจสอบสถานะระบบและการบริการต่างๆ ของ Please-Scan แบบเรียลไทม์
-          </motion.p>
-        </motion.div>
-
-        {/* Status Dashboard */}
+      <div className="container mx-auto px-4 py-16 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
         >
-          <div className="p-6 border-b border-white/10">
-            <h2 className="text-2xl font-bold text-white flex items-center">
-              <Activity className="w-6 h-6 mr-3 text-green-400" />
-              Live System Monitor
-            </h2>
-            <p className="text-gray-300 mt-2">
-              ติดตามสถานะระบบแบบเรียลไทม์
-            </p>
-          </div>
-
           {/* Iframe Container */}
           <div className="relative">
             <iframe
@@ -88,10 +44,6 @@ const StatusPage = () => {
               title="Please-Scan System Status"
               sandbox="allow-scripts allow-same-origin allow-forms"
               loading="lazy"
-              style={{
-                background: 'transparent',
-                colorScheme: 'dark'
-              }}
             />
 
             {/* Loading Overlay */}
