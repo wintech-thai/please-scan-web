@@ -23,13 +23,16 @@ const HeroSection = () => {
         >
           {/* Coming Soon Badge */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            initial={{ scale: 0, opacity: 0, rotate: -10 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
             className="inline-block"
           >
-            <div className="bg-blue-600/20 border border-blue-400/30 rounded-full px-4 sm:px-6 py-2 text-blue-400 text-xs sm:text-sm font-medium backdrop-blur-sm">
-              Coming Soon
+            <div className="relative bg-blue-600/20 border border-blue-400/40 rounded-full px-5 sm:px-7 py-2 sm:py-2.5 text-blue-300 text-xs sm:text-sm font-semibold backdrop-blur-sm shadow-md hover:shadow-blue-500/30 transition-shadow duration-500">
+              <span className="relative z-10 tracking-wide">✨ Coming Soon ✨</span>
+
+              {/* Glow effect */}
+              <span className="absolute inset-0 rounded-full bg-blue-500/20 blur-lg animate-pulse"></span>
             </div>
           </motion.div>
 
