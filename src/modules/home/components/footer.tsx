@@ -1,8 +1,10 @@
 "use client";
 
+import { AppRoute } from '@/config/app.route';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
-import Logo from '../../../components/Logo';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => {
   const socialLinks = [
@@ -12,9 +14,9 @@ const Footer = () => {
   ];
 
   const contactInfo = [
-    { icon: Mail, text: 'contact@pleasescan.com', href: 'mailto:contact@pleasescan.com' },
-    { icon: Phone, text: '+66 (0) 12-345-6789', href: 'tel:+66123456789' },
-    { icon: MapPin, text: 'Bangkok, Thailand', href: '#' },
+    { icon: Mail, text: 'contact@please-scan.com', href: 'mailto:contact@please-scan.com' },
+    { icon: Phone, text: '66(0) 94-249-4880', href: 'tel:+66942494880' },
+    { icon: MapPin, text: 'DevHub Co., Ltd. 55 Sutthisan Winitchai Road, Din Daeng Subdistrict, Din Daeng District, Bangkok 10400, Thailand', href: '#' },
   ];
 
   return (
@@ -29,7 +31,15 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <Logo size="md" showText={true} />
+            <Link href="/">
+              <Image
+                src="/logo.png"
+                alt="Please Scan Logo"
+                width={60}
+                height={40}
+                className="mr-2"
+              />
+            </Link>
             <p className="text-gray-400 leading-relaxed">
               Your trusted partner for innovative technology solutions.
               We transform ideas into digital reality.
@@ -116,7 +126,7 @@ const Footer = () => {
                     whileHover={{ x: 5 }}
                     className="flex items-center space-x-3 text-gray-400 hover:text-blue-400 transition-colors group"
                   >
-                    <IconComponent size={16} className="group-hover:text-blue-400" />
+                    <IconComponent size={16} className="group-hover:text-blue-400 flex-shrink-0" />
                     <span className="text-sm">{contact.text}</span>
                   </motion.a>
                 );
@@ -134,15 +144,15 @@ const Footer = () => {
           className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center"
         >
           <p className="text-gray-400 text-sm">
-            © 2025 Please Scan. All rights reserved.
+            © {new Date().getFullYear()} Please Scan. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+            <Link href={AppRoute.privacy} className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+            </Link>
+            <Link href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

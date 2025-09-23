@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const HeroSection = () => {
   return (
@@ -23,13 +24,33 @@ const HeroSection = () => {
         >
           {/* Coming Soon Badge */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            initial={{ scale: 0, opacity: 0, rotate: -10 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
             className="inline-block"
           >
-            <div className="bg-blue-600/20 border border-blue-400/30 rounded-full px-4 sm:px-6 py-2 text-blue-400 text-xs sm:text-sm font-medium backdrop-blur-sm">
-              Coming Soon
+            <div className="relative bg-blue-600/20 border border-blue-400/40 rounded-full px-5 sm:px-7 py-2 sm:py-2.5 text-blue-300 text-xs sm:text-sm font-semibold backdrop-blur-sm shadow-md hover:shadow-blue-500/30 transition-shadow duration-500">
+              <span className="relative z-10 tracking-wide">✨ Coming Soon ✨</span>
+
+              {/* Glow effect */}
+              <span className="absolute inset-0 rounded-full bg-blue-500/20 blur-lg animate-pulse"></span>
+            </div>
+          </motion.div>
+
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+            className="flex justify-center"
+          >
+            <div className="relative h-32 w-32 md:h-[200px] md:w-[200px]">
+              <Image
+                src="/logo.png"
+                alt="Please Scan Logo"
+                fill
+                className="absolute object-cover"
+              />
             </div>
           </motion.div>
 
@@ -38,12 +59,12 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight"
           >
             Please
             <motion.span
-              initial={{ color: '#ffffff' }}
-              animate={{ color: '#60A5FA' }}
+              initial={{ color: "#ffffff" }}
+              animate={{ color: "#60A5FA" }}
               transition={{ duration: 2, delay: 1.2 }}
               className="block"
             >
@@ -58,42 +79,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 1.5 }}
             className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
           >
-            Your trusted partner for{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.8 }}
-              className="text-blue-400 font-semibold"
-            >
-              Fullstack Development
-            </motion.span>
-            ,{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.1 }}
-              className="text-purple-400 font-semibold"
-            >
-              Web Solutions
-            </motion.span>
-            ,{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.4 }}
-              className="text-cyan-400 font-semibold"
-            >
-              API Development
-            </motion.span>
-            {' '}and{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.7 }}
-              className="text-green-400 font-semibold"
-            >
-              DevOps
-            </motion.span>
+            เราจะสร้างโลกที่ผู้บริโภคมั่นใจได้ในทุกการซื้อขาย
+            ด้วยเทคโนโลยีตรวจสอบความแท้ของสินค้าที่เชื่อถือได้และเข้าถึงง่าย
           </motion.p>
 
           {/* Description */}
@@ -103,8 +90,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 3 }}
             className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto px-4"
           >
-            We&apos;re building something amazing. Stay tuned for cutting-edge technology solutions
-            that will transform your digital presence.
+            To create a world where every purchase is trusted, through reliable
+            and accessible product authenticity verification technology
           </motion.p>
 
           {/* CTA Button */}
