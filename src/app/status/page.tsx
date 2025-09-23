@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from '@/modules/home/components/footer';
 import { motion } from 'framer-motion';
 import { Activity } from 'lucide-react';
 
@@ -90,24 +91,6 @@ const StatusPage = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* Back to Home */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          viewport={{ once: true }}
-          className="text-center mt-8"
-        >
-          <motion.a
-            href="/"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-4 rounded-full text-base transition-all duration-300 shadow-2xl border border-white/20"
-          >
-            กลับสู่หน้าหลัก
-          </motion.a>
-        </motion.div>
       </div>
 
       {/* Script to handle iframe loading */}
@@ -134,6 +117,7 @@ const StatusPage = () => {
           `
         }}
       />
+      <Footer />
     </div>
   );
 }
