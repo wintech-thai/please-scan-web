@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -56,8 +56,8 @@ const HeroSection = () => {
           >
             Please
             <motion.span
-              initial={{ color: '#ffffff' }}
-              animate={{ color: '#60A5FA' }}
+              initial={{ color: "#ffffff" }}
+              animate={{ color: "#60A5FA" }}
               transition={{ duration: 2, delay: 1.2 }}
               className="block"
             >
@@ -72,42 +72,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 1.5 }}
             className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
           >
-            Your trusted partner for{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.8 }}
-              className="text-blue-400 font-semibold"
-            >
-              Fullstack Development
-            </motion.span>
-            ,{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.1 }}
-              className="text-purple-400 font-semibold"
-            >
-              Web Solutions
-            </motion.span>
-            ,{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.4 }}
-              className="text-cyan-400 font-semibold"
-            >
-              API Development
-            </motion.span>
-            {' '}and{' '}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2.7 }}
-              className="text-green-400 font-semibold"
-            >
-              DevOps
-            </motion.span>
+            เราจะสร้างโลกที่ผู้บริโภคมั่นใจได้ในทุกการซื้อขาย
+            ด้วยเทคโนโลยีตรวจสอบความแท้ของสินค้าที่เชื่อถือได้และเข้าถึงง่าย
           </motion.p>
 
           {/* Description */}
@@ -117,8 +83,8 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 3 }}
             className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto px-4"
           >
-            We&apos;re building something amazing. Stay tuned for cutting-edge technology solutions
-            that will transform your digital presence.
+            To create a world where every purchase is trusted, through reliable
+            and accessible product authenticity verification technology
           </motion.p>
 
           {/* CTA Button */}

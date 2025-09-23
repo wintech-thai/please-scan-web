@@ -1,43 +1,50 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { Award, Users, Clock, Target, CheckCircle, TrendingUp } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  Award,
+  Users,
+  Clock,
+  Target,
+  CheckCircle,
+  TrendingUp,
+} from "lucide-react";
 
 const AboutSection = () => {
   const stats = [
     {
       icon: Clock,
-      number: '10+',
-      label: 'Years Experience',
-      description: 'ประสบการณ์ในการพัฒนาเทคโนโลยี'
+      number: "10+",
+      label: "Years Experience",
+      description: "ประสบการณ์ในการพัฒนาเทคโนโลยี",
     },
     {
       icon: Users,
-      number: '100+',
-      label: 'Projects Completed',
-      description: 'โปรเจคที่สำเร็จแล้ว'
+      number: "100+",
+      label: "Projects Completed",
+      description: "โปรเจคที่สำเร็จแล้ว",
     },
     {
       icon: Award,
-      number: '50+',
-      label: 'Happy Clients',
-      description: 'ลูกค้าที่พึงพอใจ'
+      number: "50+",
+      label: "Happy Clients",
+      description: "ลูกค้าที่พึงพอใจ",
     },
     {
       icon: TrendingUp,
-      number: '99%',
-      label: 'Success Rate',
-      description: 'อัตราความสำเร็จ'
-    }
+      number: "99%",
+      label: "Success Rate",
+      description: "อัตราความสำเร็จ",
+    },
   ];
 
   const features = [
-    'Full-Stack Development Expertise',
-    'Modern Technology Stack',
-    'Agile Development Process',
-    'Quality Assurance Testing',
-    'DevOps & Cloud Solutions',
-    '24/7 Technical Support'
+    "Full-Stack Development Expertise",
+    "Modern Technology Stack",
+    "Agile Development Process",
+    "Quality Assurance Testing",
+    "DevOps & Cloud Solutions",
+    "24/7 Technical Support",
   ];
 
   const containerVariants = {
@@ -45,9 +52,9 @@ const AboutSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -56,9 +63,9 @@ const AboutSection = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6
-      }
-    }
+        duration: 0.6,
+      },
+    },
   };
 
   return (
@@ -88,8 +95,12 @@ const AboutSection = () => {
             viewport={{ once: true }}
             className="text-xl text-gray-300 max-w-3xl mx-auto"
           >
-            เราคือทีมผู้เชี่ยวชาญด้านเทคโนโลยีครบวงจร พร้อมประสบการณ์มากกว่า 10 ปี
-            ในการสร้างสรรค์โซลูชันดิจิทัลที่ตอบโจทย์ธุรกิจของคุณ
+            At Please-Scan, we are a team of Programming and DevOps experts
+            passionate about building technology that solves real-world
+            problems. By leveraging our expertise in software development and
+            large-scale system operations, we've created a solution that ensures
+            product authenticity, empowering consumers with confidence and
+            helping businesses protect their brand value.
           </motion.p>
         </motion.div>
 
@@ -108,12 +119,14 @@ const AboutSection = () => {
                 <span className="text-blue-400">ประสบการณ์ยาวนาน</span>
               </h3>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                ด้วยประสบการณ์มากกว่า 10 ปีในวงการพัฒนาซอฟต์แวร์ เรามีความเชี่ยวชาญในการสร้างโซลูชันเทคโนโลยี
-                ที่ครอบคลุมทุกด้าน ตั้งแต่การพัฒนาเว็บไซต์ แอปพลิเคชัน API จนถึงการจัดการระบบ DevOps
+                ด้วยประสบการณ์มากกว่า 10 ปีในวงการพัฒนาซอฟต์แวร์
+                เรามีความเชี่ยวชาญในการสร้างโซลูชันเทคโนโลยี ที่ครอบคลุมทุกด้าน
+                ตั้งแต่การพัฒนาเว็บไซต์ แอปพลิเคชัน API จนถึงการจัดการระบบ
+                DevOps
               </p>
               <p className="text-gray-300 text-lg leading-relaxed">
-                เราเข้าใจความต้องการของธุรกิจสมัยใหม่ที่ต้องการการพัฒนาที่รวดเร็ว มีคุณภาพ
-                และสามารถปรับขนาดได้ตามการเติบโตของธุรกิจ
+                เราเข้าใจความต้องการของธุรกิจสมัยใหม่ที่ต้องการการพัฒนาที่รวดเร็ว
+                มีคุณภาพ และสามารถปรับขนาดได้ตามการเติบโตของธุรกิจ
               </p>
             </div>
 
@@ -159,9 +172,15 @@ const AboutSection = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
-                  <div className="text-blue-400 font-medium mb-1">{stat.label}</div>
-                  <div className="text-gray-400 text-sm">{stat.description}</div>
+                  <div className="text-3xl font-bold text-white mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-blue-400 font-medium mb-1">
+                    {stat.label}
+                  </div>
+                  <div className="text-gray-400 text-sm">
+                    {stat.description}
+                  </div>
                 </motion.div>
               );
             })}
@@ -181,10 +200,10 @@ const AboutSection = () => {
             Our Mission
           </h3>
           <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            เรามุ่งมั่นที่จะเป็นพาร์ทเนอร์ที่เชื่อถือได้ในการพัฒนาโซลูชันเทคโนโลยี
-            ที่ช่วยให้ธุรกิจของคุณเติบโตและแข่งขันได้ในยุคดิจิทัล
-            ด้วยการใช้เทคโนโลยีที่ทันสมัย กระบวนการพัฒนาที่มีประสิทธิภาพ
-            และการบริการที่เน้นความพึงพอใจของลูกค้าเป็นหลัก
+            We leverage our expertise in Programming and DevOps to build secure,
+            user-friendly, and reliable product authenticity verification
+            technology — ensuring consumer confidence and protecting businesses
+            from counterfeits.
           </p>
 
           {/* <motion.div
