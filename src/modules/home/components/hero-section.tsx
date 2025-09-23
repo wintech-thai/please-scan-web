@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const HeroSection = () => {
   return (
@@ -43,7 +44,7 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 1.5 }}
             className="flex justify-center"
           >
-            <img
+            <Image
               src="/logo.png"
               alt="Please Scan Logo"
               className="h-32 w-32 md:h-[200px] md:w-[200px]"

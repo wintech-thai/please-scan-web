@@ -98,7 +98,7 @@ const AboutSection = () => {
             At Please-Scan, we are a team of Programming and DevOps experts
             passionate about building technology that solves real-world
             problems. By leveraging our expertise in software development and
-            large-scale system operations, we've created a solution that ensures
+            large-scale system operations, we&apos;ve created a solution that ensures
             product authenticity, empowering consumers with confidence and
             helping businesses protect their brand value.
           </motion.p>
