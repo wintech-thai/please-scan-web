@@ -6,9 +6,11 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { AppRoute } from "@/config/app.route";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const links = [
     {
@@ -29,7 +31,26 @@ const Navbar = () => {
     },
   ];
 
-  const closeAfterNav = () => setTimeout(() => setIsOpen(false), 0);
+  const handleMobileNavClick = (link: string) => {
+    if (link.includes('#') && pathname === AppRoute.home) {
+      setIsOpen(false);
+
+      setTimeout(() => {
+        const anchor = link.split('#')[1];
+        const element = document.getElementById(anchor);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 300);
+
+      return;
+    }
+
+    setIsOpen(false);
+  };
 
   return (
     <motion.nav className="fixed top-0 left-0 right-0 w-full z-50 bg-white/10 backdrop-blur-md border-b border-white/20 overflow-x-hidden">
@@ -90,17 +111,37 @@ const Navbar = () => {
           className="md:hidden overflow-hidden"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {links.map((link) => (
-              <Link key={link.name} href={link.link}>
-                <motion.span
-                  whileHover={{ x: 10 }}
-                  className="text-white hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium"
-                  onClick={closeAfterNav}
-                >
-                  {link.name}
-                </motion.span>
-              </Link>
-            ))}
+            {links.map((link) => {
+              const isAnchorLink = link.link.includes('#') && pathname === AppRoute.home;
+
+              if (isAnchorLink) {
+                return (
+                  <motion.span
+                    key={link.name}
+                    whileHover={{ x: 10 }}
+                    className="text-white hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleMobileNavClick(link.link);
+                    }}
+                  >
+                    {link.name}
+                  </motion.span>
+                );
+              }
+
+              return (
+                <Link key={link.name} href={link.link}>
+                  <motion.span
+                    whileHover={{ x: 10 }}
+                    className="text-white hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium"
+                    onClick={() => handleMobileNavClick(link.link)}
+                  >
+                    {link.name}
+                  </motion.span>
+                </Link>
+              );
+            })}
           </div>
         </motion.div>
       </div>
