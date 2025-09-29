@@ -35,7 +35,7 @@ const Footer = () => {
   const contactInfo = [
     { icon: Mail, text: 'contact@please-scan.com', href: 'mailto:contact@please-scan.com' },
     { icon: Phone, text: '66(0) 94-249-4880', href: 'tel:+66942494880' },
-    { icon: MapPin, text: 'DevHub Co., Ltd. 55 Sutthisan Winitchai Road, Din Daeng Subdistrict, Din Daeng District, Bangkok 10400, Thailand', href: '#' },
+    { icon: MapPin, text: 'Dev Hub Co., Ltd. 55 Sutthisan Winitchai Road, Din Daeng Subdistrict, Din Daeng District, Bangkok 10400, Thailand', href: '#' },
   ];
 
   const services = [
