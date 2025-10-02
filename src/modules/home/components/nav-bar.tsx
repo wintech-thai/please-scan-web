@@ -7,6 +7,7 @@ import Image from "next/image";
 import { AppRoute } from "@/config/app.route";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { env } from "next-runtime-env";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -52,6 +53,8 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  const consoleUrl = (env("NEXT_PUBLIC_CONSOLE_URL") ?? "") + "/auth/sign-in";
+
   return (
     <motion.nav className="fixed top-0 left-0 right-0 w-full z-50 bg-white/10 backdrop-blur-md border-b border-white/20 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -85,6 +88,16 @@ const Navbar = () => {
                   </motion.span>
                 </Link>
               ))}
+
+              <Link href={consoleUrl}>
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 inline-block"
+                >
+                  Login
+                </motion.span>
+              </Link>
             </div>
           </div>
 
@@ -142,6 +155,16 @@ const Navbar = () => {
                 </Link>
               );
             })}
+
+            <Link href={consoleUrl}>
+              <motion.span
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white block px-4 py-3 rounded-lg text-base font-semibold shadow-lg mt-4 text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Login
+              </motion.span>
+            </Link>
           </div>
         </motion.div>
       </div>
