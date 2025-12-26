@@ -30,6 +30,11 @@ const Navbar = () => {
       name: "Status",
       link: AppRoute.status,
     },
+    {
+      name: "Documents",
+      link: AppRoute.document,
+    },
+    
   ];
 
   const handleMobileNavClick = (link: string) => {
