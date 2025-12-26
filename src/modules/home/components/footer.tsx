@@ -30,6 +30,10 @@ const Footer = () => {
       name: "Status",
       link: AppRoute.status,
     },
+    {
+      name: "Dcuments",
+      link: AppRoute.document,
+    },
   ];
 
   const contactInfo = [
