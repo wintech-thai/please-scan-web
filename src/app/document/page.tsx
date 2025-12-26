@@ -106,8 +106,8 @@ export default function DocumentsPage() {
   const documents: DocumentItem[] = [
     {
       id: 1,
-      title: 'Please Scan Manual (v2)',
-      description: 'เอกสารคู่มือการใช้งาน Please Scan เวอร์ชันล่าสุด',
+      title: 'Product & Service Guide',
+      description: 'เอกสารแนะนำรายละเอียดสินค้า บริการ และโซลูชันทั้งหมดของ Please Scan',
       url: 'https://cdn.jsdelivr.net/gh/wintech-thai/dev-hubs-artifacts@main/please-scan.v2.pdf',
       version: 'v2.0',
       date: 'Dec 2025',
