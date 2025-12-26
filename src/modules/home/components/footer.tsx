@@ -31,7 +31,7 @@ const Footer = () => {
       link: AppRoute.status,
     },
     {
-      name: "Dcuments",
+      name: "Documents",
       link: AppRoute.document,
     },
   ];
