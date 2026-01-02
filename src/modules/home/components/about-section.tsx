@@ -24,41 +24,29 @@ const AboutSection = () => {
       (entries) => {
         const [entry] = entries;
 
-        // กรณี: วิดีโอหลุดจากจอ (threshold < 0.2) และกำลังเล่นอยู่
         if (!entry.isIntersecting && !videoElement.paused) {
           
-          // เก็บระดับเสียงเดิมไว้ก่อน (เช่น 1.0)
           const originalVolume = videoElement.volume;
 
-          // ถ้ามี Loop เก่าค้างอยู่ ให้เคลียร์ทิ้งก่อน
           if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
 
-          // เริ่ม Loop ลดเสียง (Fade Out)
           fadeIntervalRef.current = setInterval(() => {
-            // ถ้าเสียงยังดังกว่า 0.1 ให้ลดลงทีละ 0.1
             if (videoElement.volume > 0.1) {
               videoElement.volume -= 0.1;
             } else {
-              // เมื่อเสียงเบาจนสุดแล้ว
               videoElement.volume = 0;      // ปรับให้เป็น 0 สนิท
               videoElement.pause();         // สั่งหยุดเล่น
               
-              // หยุด Loop
               if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
               
-              // ***สำคัญ***: คืนค่าระดับเสียงเดิมเตรียมไว้สำหรับการเล่นครั้งหน้า
-              // (ไม่งั้นครั้งหน้ามากดเล่น คลิปจะไม่มีเสียง)
               videoElement.volume = originalVolume;
             }
-          }, 50); // ทำงานทุก 50ms (0.05 วินาที) -> รวมๆ จะใช้เวลา fade ประมาณ 0.5 วิ
+          }, 50);
         }
         
-        // กรณี: เลื่อนกลับมาเจอ (Optional)
-        // ถ้าเลื่อนกลับมาเจอก่อนที่มันจะ fade จบ ให้ยกเลิกการ fade แล้วคืนค่าเสียงทันที
         if (entry.isIntersecting && fadeIntervalRef.current) {
             clearInterval(fadeIntervalRef.current);
             fadeIntervalRef.current = null;
-            // คืนค่า volume กลับมาเต็ม (สมมติว่าเป็น 1)
             if(videoElement.paused) videoElement.volume = 1; 
         }
 
@@ -226,7 +214,7 @@ const AboutSection = () => {
             viewport={{ once: true }}
             className="flex justify-center lg:justify-end"
           >
-             {/* Phone Mockup Video Container */}
+             {/* Phone Video Container */}
             <div className="relative w-[260px]">
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-slate-800 bg-black group z-10">
                 <video
@@ -246,7 +234,7 @@ const AboutSection = () => {
           </motion.div>
         </div>
 
-        {/* --- โซนสถิติ (Stats Bar - Full Width) --- */}
+        {/* --- (Stats Bar - Full Width) --- */}
         <motion.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
