@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Award,
@@ -11,6 +12,56 @@ import {
 } from "lucide-react";
 
 const AboutSection = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  // ใช้เก็บตัว ID ของการ Loop ลดเสียง เพื่อให้สั่งหยุด Loop ได้ถ้าจำเป็น
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting && !videoElement.paused) {
+          
+          const originalVolume = videoElement.volume;
+
+          if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+
+          fadeIntervalRef.current = setInterval(() => {
+            if (videoElement.volume > 0.1) {
+              videoElement.volume -= 0.1;
+            } else {
+              videoElement.volume = 0;      // ปรับให้เป็น 0 สนิท
+              videoElement.pause();         // สั่งหยุดเล่น
+              
+              if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+              
+              videoElement.volume = originalVolume;
+            }
+          }, 50);
+        }
+        
+        if (entry.isIntersecting && fadeIntervalRef.current) {
+            clearInterval(fadeIntervalRef.current);
+            fadeIntervalRef.current = null;
+            if(videoElement.paused) videoElement.volume = 1; 
+        }
+
+      },
+      { threshold: 0.2 } // จุดเริ่มทำงาน (เมื่อเหลือพื้นที่บนจอ 20%)
+    );
+
+    observer.observe(videoElement);
+
+    return () => {
+      observer.disconnect();
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    };
+  }, []);
+
   const stats = [
     {
       icon: Clock,
@@ -104,8 +155,10 @@ const AboutSection = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Left Content */}
+        {/* --- Main Content Grid (Text vs Video) --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+          
+          {/* Left Content (Text & Features) */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -153,15 +206,43 @@ const AboutSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Stats */}
+          {/* Right Content (Video Only - Centered) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-6"
+            className="flex justify-center lg:justify-end"
           >
-            {stats.map((stat, index) => {
+             {/* Phone Video Container */}
+            <div className="relative w-[260px]">
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-slate-800 bg-black group z-10">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover aspect-[9/16]"
+                  controls
+                  preload="metadata"
+                >
+                  <source src="/intro.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              {/* Decorative Glow */}
+              <div className="absolute top-10 -inset-4 bg-blue-600/30 rounded-[3rem] blur-3xl -z-10 group-hover:bg-blue-600/40 transition-colors duration-500"></div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* --- (Stats Bar - Full Width) --- */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8, delay: 0.4 }}
+           viewport={{ once: true }}
+           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
+        >
+           {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
                 <motion.div
@@ -183,9 +264,8 @@ const AboutSection = () => {
                   </div>
                 </motion.div>
               );
-            })}
-          </motion.div>
-        </div>
+           })}
+        </motion.div>
 
         {/* Mission Statement */}
         <motion.div
@@ -205,22 +285,6 @@ const AboutSection = () => {
             technology — ensuring consumer confidence and protecting businesses
             from counterfeits.
           </p>
-
-          {/* <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="mt-8"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 shadow-lg"
-            >
-              Learn More About Us
-            </motion.button>
-          </motion.div> */}
         </motion.div>
       </div>
     </section>
