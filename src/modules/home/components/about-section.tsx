@@ -15,8 +15,8 @@ const AboutSection = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ฟังก์ชันช่วยส่งคำสั่งไปที่ YouTube (PostMessage API)
-  const sendYouTubeCommand = (command: string, args: any[] = []) => {
+  // --- เปลี่ยน any[] เป็น (string | number)[] แก้ cicd build fail เพราะ โปรโจคเข้มงวดห้ามมี type any ในโปรเจค---
+  const sendYouTubeCommand = (command: string, args: (string | number)[] = []) => {
     if (iframeRef.current && iframeRef.current.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         JSON.stringify({
@@ -30,7 +30,7 @@ const AboutSection = () => {
   };
 
   useEffect(() => {
-    const container = iframeRef.current?.parentElement; 
+    const container = iframeRef.current?.parentElement;
     if (!container) return;
 
     const observer = new IntersectionObserver(
@@ -38,25 +38,23 @@ const AboutSection = () => {
         const [entry] = entries;
 
         if (!entry.isIntersecting) {
-          
           if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
 
-          let currentVolume = 100; 
+          let currentVolume = 100;
 
           fadeIntervalRef.current = setInterval(() => {
             if (currentVolume > 0) {
-              currentVolume -= 10; 
+              currentVolume -= 10;
               sendYouTubeCommand("setVolume", [currentVolume]);
             } else {
-              sendYouTubeCommand("pauseVideo"); 
+              sendYouTubeCommand("pauseVideo");
               if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
               
-              // คืนค่าเสียงกลับเป็น 100 ทันที เพื่อให้กดเล่นครั้งหน้ามีเสียง
               setTimeout(() => {
                 sendYouTubeCommand("setVolume", [100]);
               }, 500);
             }
-          }, 100); // ทำงานทุก 0.1 วินาที
+          }, 100);
         }
       },
       { threshold: 0.2 }
@@ -163,10 +161,10 @@ const AboutSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* --- Main Content Grid (Text vs Video) --- */}
+        {/* --- Main Content Grid --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
           
-          {/* Left Content (Text & Features) */}
+          {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -214,7 +212,7 @@ const AboutSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content (YouTube Video - Centered) */}
+          {/* Right Content */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -225,7 +223,6 @@ const AboutSection = () => {
              {/* Phone Video Container */}
             <div className="relative w-[260px]">
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-slate-800 bg-black group z-10 aspect-[9/16]">
-                {/* --- YouTube Iframe --- */}
                 <iframe
                   ref={iframeRef}
                   className="w-full h-full"
@@ -236,14 +233,12 @@ const AboutSection = () => {
                   style={{ border: 0 }}
                 ></iframe>
               </div>
-
-              {/* Decorative Glow */}
               <div className="absolute top-10 -inset-4 bg-blue-600/30 rounded-[3rem] blur-3xl -z-10 group-hover:bg-blue-600/40 transition-colors duration-500"></div>
             </div>
           </motion.div>
         </div>
 
-        {/* --- โซนสถิติ --- */}
+        {/* --- Stats Bar --- */}
         <motion.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
@@ -276,6 +271,7 @@ const AboutSection = () => {
            })}
         </motion.div>
 
+        {/* Mission Statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
