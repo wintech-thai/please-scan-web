@@ -12,49 +12,57 @@ import {
 } from "lucide-react";
 
 const AboutSection = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  // ใช้เก็บตัว ID ของการ Loop ลดเสียง เพื่อให้สั่งหยุด Loop ได้ถ้าจำเป็น
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // ฟังก์ชันช่วยส่งคำสั่งไปที่ YouTube (PostMessage API)
+  const sendYouTubeCommand = (command: string, args: any[] = []) => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({
+          event: "command",
+          func: command,
+          args: args,
+        }),
+        "*"
+      );
+    }
+  };
+
   useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
+    const container = iframeRef.current?.parentElement; 
+    if (!container) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
 
-        if (!entry.isIntersecting && !videoElement.paused) {
+        if (!entry.isIntersecting) {
           
-          const originalVolume = videoElement.volume;
-
           if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
 
+          let currentVolume = 100; 
+
           fadeIntervalRef.current = setInterval(() => {
-            if (videoElement.volume > 0.1) {
-              videoElement.volume -= 0.1;
+            if (currentVolume > 0) {
+              currentVolume -= 10; 
+              sendYouTubeCommand("setVolume", [currentVolume]);
             } else {
-              videoElement.volume = 0;      // ปรับให้เป็น 0 สนิท
-              videoElement.pause();         // สั่งหยุดเล่น
-              
+              sendYouTubeCommand("pauseVideo"); 
               if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
               
-              videoElement.volume = originalVolume;
+              // คืนค่าเสียงกลับเป็น 100 ทันที เพื่อให้กดเล่นครั้งหน้ามีเสียง
+              setTimeout(() => {
+                sendYouTubeCommand("setVolume", [100]);
+              }, 500);
             }
-          }, 50);
+          }, 100); // ทำงานทุก 0.1 วินาที
         }
-        
-        if (entry.isIntersecting && fadeIntervalRef.current) {
-            clearInterval(fadeIntervalRef.current);
-            fadeIntervalRef.current = null;
-            if(videoElement.paused) videoElement.volume = 1; 
-        }
-
       },
-      { threshold: 0.2 } // จุดเริ่มทำงาน (เมื่อเหลือพื้นที่บนจอ 20%)
+      { threshold: 0.2 }
     );
 
-    observer.observe(videoElement);
+    observer.observe(container);
 
     return () => {
       observer.disconnect();
@@ -206,7 +214,7 @@ const AboutSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content (Video Only - Centered) */}
+          {/* Right Content (YouTube Video - Centered) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -216,16 +224,17 @@ const AboutSection = () => {
           >
              {/* Phone Video Container */}
             <div className="relative w-[260px]">
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-slate-800 bg-black group z-10">
-                <video
-                  ref={videoRef}
-                  className="w-full h-full object-cover aspect-[9/16]"
-                  controls
-                  preload="metadata"
-                >
-                  <source src="/intro.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-slate-800 bg-black group z-10 aspect-[9/16]">
+                {/* --- YouTube Iframe --- */}
+                <iframe
+                  ref={iframeRef}
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/TL_6vNWyThM?enablejsapi=1&rel=0&modestbranding=1&playsinline=1&controls=1" 
+                  title="Please Scan Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ border: 0 }}
+                ></iframe>
               </div>
 
               {/* Decorative Glow */}
@@ -234,7 +243,7 @@ const AboutSection = () => {
           </motion.div>
         </div>
 
-        {/* --- (Stats Bar - Full Width) --- */}
+        {/* --- โซนสถิติ --- */}
         <motion.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
@@ -267,7 +276,6 @@ const AboutSection = () => {
            })}
         </motion.div>
 
-        {/* Mission Statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
