@@ -11,15 +11,19 @@ import { env } from "next-runtime-env";
 
 // --- Custom Icons (SVG) ---
 
-const PhoneSolidIcon = ({ className }: { className?: string }) => (
+const PhoneRingingIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className={className}>
-    <path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.9 464-464 0-11.2-7.7-20.9-18.6-23.4z"/>
+    <path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z"/>
+    <path d="M400 32a16 16 0 0 0-16 16v96a16 16 0 0 0 32 0V48a16 16 0 0 0-16-16z" opacity="0.6"/>
+    <path d="M400 0a48 48 0 0 0-48 48v96a48 48 0 0 0 96 0V48a48 48 0 0 0-48-48zm16 144a16 16 0 0 1-32 0V48a16 16 0 0 1 32 0z" opacity="0.4"/>
   </svg>
 );
 
-const MobileSolidIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" className={className}>
-    <path d="M0 64C0 28.7 28.7 0 64 0H320c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM192 400a48 48 0 1 0 0 96 48 48 0 1 0 0-96z"/>
+const GlobeIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M2 12h20" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
   </svg>
 );
 
@@ -143,31 +147,43 @@ const Navbar = () => {
               {/* --- Contact Info (Desktop - Inline Stacked) --- */}
               <div className="flex flex-col justify-center items-end border-l border-white/10 pl-4 ml-2 lg:ml-4 leading-tight">
                   <div className="flex items-center space-x-2">
-                      <PhoneSolidIcon className="w-3 h-3 text-pink-500" />
+                      <motion.div
+                         animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
+                         transition={{ repeat: Infinity, repeatDelay: 2, duration: 0.5 }}
+                      >
+                         <PhoneRingingIcon className="w-4 h-4 text-pink-500" />
+                      </motion.div>
                       <span className="text-xs text-pink-100 font-medium">095-347-6002</span>
                   </div>
                   <div className="flex items-center space-x-2 mt-0.5">
-                      <MobileSolidIcon className="w-3 h-3 text-gray-400" />
+                      <motion.div
+                         animate={{ rotate: 360 }}
+                         transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+                      >
+                         <GlobeIcon className="w-4 h-4 text-gray-400" />
+                      </motion.div>
                       <span className="text-xs text-gray-300 font-light whitespace-nowrap">094-249-4880 (International Contact)</span>
                   </div>
               </div>
 
-              {/* Social Icons */}
+              {/* Social Icons (Desktop) */}
               <div className="flex items-center ml-2 mr-2 shadow-sm gap-2"> 
                 {socials.map((social) => {
                   const Icon = social.icon;
                   const iconSize = social.name === 'Line' ? 'w-6 h-6' : 'w-4 h-4';
                   
                   return (
-                    <a
+                    <motion.a
                       key={social.name}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${social.bgClass} w-9 h-9 flex items-center justify-center text-white transition-colors duration-200`}
+                      className={`${social.bgClass} w-9 h-9 flex items-center justify-center text-white rounded-md`}
+                      whileHover={{ scale: 1.1, y: -3, boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.3)" }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Icon className={`${iconSize} fill-current`} />
-                    </a>
+                    </motion.a>
                   );
                 })}
               </div>
@@ -243,11 +259,15 @@ const Navbar = () => {
             {/* --- Mobile Contact Info --- */}
             <div className="px-3 py-4 border-t border-white/10 mt-2 space-y-3">
                  <div className="flex items-center space-x-3">
-                    <PhoneSolidIcon className="w-4 h-4 text-pink-500" />
+                    <motion.div animate={{ rotate: [0, -5, 5, -5, 5, 0] }} transition={{ repeat: Infinity, repeatDelay: 2, duration: 0.5 }}>
+                        <PhoneRingingIcon className="w-5 h-5 text-pink-500" />
+                    </motion.div>
                     <span className="text-sm text-gray-300 hover:text-white">095-347-6002</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                    <MobileSolidIcon className="w-4 h-4 text-gray-400" />
+                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }}>
+                        <GlobeIcon className="w-5 h-5 text-gray-400" />
+                    </motion.div>
                     <span className="text-sm text-gray-300 hover:text-white">094-249-4880 (International Contact)</span>
                 </div>
             </div>
@@ -263,20 +283,22 @@ const Navbar = () => {
             </Link>
 
             <div className="flex justify-center items-center mt-6 pb-4">
-              <div className="flex shadow-sm gap-2">
+              <div className="flex shadow-sm gap-3">
                {socials.map((social) => {
                   const Icon = social.icon;
                   const iconSize = social.name === 'Line' ? 'w-7 h-7' : 'w-5 h-5';
                   return (
-                    <a
+                    <motion.a
                       key={social.name}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${social.bgClass} w-10 h-10 flex items-center justify-center text-white active:opacity-80`}
+                      className={`${social.bgClass} w-10 h-10 flex items-center justify-center text-white rounded-md`}
+                      whileHover={{ scale: 1.1, y: -3 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Icon className={`${iconSize} fill-current`} />
-                    </a>
+                    </motion.a>
                   );
                 })}
               </div>
